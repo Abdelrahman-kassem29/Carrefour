@@ -1,3 +1,6 @@
 # Carrefour
-#Project Setup
-$npm install
+
+## Project setup
+```
+npm install
+```
