@@ -117,14 +117,26 @@ class HomePage extends StatelessWidget {
 
 class CategoryGrid extends StatelessWidget {
   final List<Map<String, String>> categories = [
-    {'label': 'Smashing Prices', 'image': 'assets/smashing_prices.png'},
-    {'label': 'Hot Prices', 'image': 'assets/hot_prices.png'},
-    {'label': 'Best Sellers', 'image': 'assets/best_sellers.png'},
-    {'label': 'Grocery Essentials', 'image': 'assets/grocery_essentials.png'},
-    {'label': 'TVs', 'image': 'assets/tvs.png'},
-    {'label': 'Large Appliances', 'image': 'assets/large_appliances.png'},
-    {'label': 'Meat & Poultry', 'image': 'assets/meat_poultry.png'},
-    {'label': 'Cold Cuts', 'image': 'assets/cold_cuts.png'},
+    {'label': 'Smashing Prices', 'image': 'assets/smashinprices.jpeg'},
+    {'label': 'Hot Prices', 'image': 'assets/bestprices.avif'},
+    {'label': 'Best Sellers', 'image': 'assets/bestsellers.jpeg'},
+    {'label': 'Bulk Savings', 'image': 'assets/bulkdeals.jpeg'},
+
+    {'label': 'Coupons Zone', 'image': 'assets/grocery_essentials.png'},
+    {'label': 'Chocolate & Snacks', 'image': 'assets/chocolates.jpeg'},
+    {'label': 'Grocery Essentials', 'image': 'assets/grocery.jpeg'},
+    {'label': 'Meat & Poultry', 'image': 'assets/meat.jpeg'},
+
+
+    {'label': 'Laundry & Detergents', 'image': 'assets/laundry.jpg'},
+    {'label': 'Cleaning Essentials', 'image': 'assets/cleaning.jpeg'},
+    {'label': 'Frozen Food', 'image': 'assets/frozenfood.jpeg'},
+    {'label': 'bevarage', 'image': 'assets/bevarages.jpeg'},
+
+    {'label': 'Cold Cuts', 'image': 'assets/coldcuts.jpeg'},
+    {'label': 'Fruits & Vegetables', 'image': 'assets/fruit.jpeg'},
+    {'label': 'Personal Care', 'image': 'assets/personalcare.jpeg'},
+    {'label': 'Baby Products', 'image': 'assets/baby.jpg'},
   ];
 
   @override

@@ -41,42 +41,53 @@ class DealsPage extends StatelessWidget {
   }
 
   Widget offerCircles() {
-    final List<Map<String, String>> offers = [
-      {'text': 'Smashing\nPrices'},
-      {'text': 'Hot\nPrices!'},
-      {'text': 'Best\nSellers!'},
-      {'text': 'Online\nLeaflet'},
-      {'text': 'Budget\nStore'},
-      {'text': 'New\nArrivals'},
-      {'text': 'Carrefour\nProducts'},
-      {'text': 'Bulk\nSaving'},
-    ];
+  final List<Map<String, String>> offers = [
+    {'image': 'assets/smashinprices.jpeg', 'text': 'Smashing\nPrices'},
+    {'image': 'assets/hot_prices.png', 'text': 'Hot\nPrices!'},
+    {'image': 'assets/bestsellers.jpeg', 'text': 'Best\nSellers!'},
+    {'image': 'assets/online_leaflet.png', 'text': 'Online\nLeaflet'},
+    {'image': 'assets/budgetstore.avif', 'text': 'Budget\nStore'},
+    {'image': 'assets/newarrivals.jpeg', 'text': 'New\nArrivals'},
+    {'image': 'assets/carrefourproduct.jpeg', 'text': 'Carrefour\nProducts'},
+    {'image': 'assets/bulkdeals.jpeg', 'text': 'Bulk\nSaving'},
+  ];
 
-    return SizedBox(
-      height: 90,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: offers.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.red,
-                child: Text(
-                  offers[index]['text']!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          );
-        },
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 12),
+    child: GridView.builder(
+      shrinkWrap: true, // Allows the grid to fit within the screen
+      physics: const NeverScrollableScrollPhysics(), // Prevents scrolling inside the grid
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4, // 4 circles per row
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
+        childAspectRatio: 1, // Ensures circles and titles fit well
       ),
-    );
-  }
+      itemCount: offers.length,
+      itemBuilder: (context, index) {
+        final offer = offers[index];
+        return Column(
+          children: [
+            ClipOval(
+              child: Image.asset(
+                offer['image']!,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              offer['text']!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 12),
+            ),
+          ],
+        );
+      },
+    ),
+  );
+}
 
   Widget topOffersList() {
     final List<Map<String, dynamic>> topOffers = [
