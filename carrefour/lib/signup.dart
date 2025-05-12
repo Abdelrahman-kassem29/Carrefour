@@ -190,10 +190,15 @@ class _SignupPageState extends State<SignupPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
-                child: const Text('Register', style: TextStyle(fontSize: 16)),
+                child: const Text(
+                  'Register',
+                  style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white, // Set the text color to white
+                 ),
               ),
-
-              const SizedBox(height: 16),
+                ),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

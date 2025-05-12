@@ -42,10 +42,13 @@ class MorePage extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Color(0xFF005BAC),
                   minimumSize: Size(double.infinity, 50),
                 ),
-                child: Text('Login or Register'),
+                child: Text(
+                  'Login or Register',
+                  style: TextStyle(color: Colors.white), // Set text color to white
+                ),
               ),
               SizedBox(height: 24),
 
@@ -80,6 +83,7 @@ class MorePage extends StatelessWidget {
       onTap: () {
         // Add navigation or action here
       },
+      
     );
   }
 }

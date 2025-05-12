@@ -5,90 +5,106 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white, elevation: 0),
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: SingleChildScrollView( // Fix: make it scrollable and interactive
-          child: Column(
-            children: [
-              SizedBox(height: 20),
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => Navigator.pop(context),
-                alignment: Alignment.topLeft,
-              ),
-              SizedBox(height: 10),
-              Image.asset(
-                'assets/carrefour_logo.png',
-                height: 60,
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Get access to over 190,000\nquality products',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Email address',
-                    border: OutlineInputBorder(),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Global padding for the screen
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                 // Spacing after back button
+                Center(
+                  child: Column(
+                    children: [
+                      Image.asset(
+                        'assets/logo.png',
+                        height: 60,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF005BAC),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text(
+                        'Get access to over 190,000\nquality products',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
+                      SizedBox(height: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0), // Input padding
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Email address',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16), // Spacing between input and button
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Color(0xFF005BAC),
+                          ),
+                          child: const Text(
+                            'Continue',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 20),
+                      Row(
+                        children: [
+                          Expanded(child: Divider(indent: 10, endIndent: 10)),
+                          Text('or'),
+                          Expanded(child: Divider(indent: 10, endIndent: 10)),
+                        ],
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _socialButton('assets/facebook.png'),
+                          _socialButton('assets/google.png'),
+                          _socialButton('assets/apple.png'),
+                        ],
+                      ),
+                      SizedBox(height: 30),
+                      Text('New to Carrefour?'),
+                      SizedBox(height: 8),
+                      GestureDetector(
+                        onTap: () {
+                          print('Navigating to signup...');
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignupPage()),
+                          );
+                        },
+                        child: Text(
+                          'Sign up for a new account',
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                    ],
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    child: Text('Continue'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF005BAC),
-                      textStyle: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(child: Divider(indent: 20, endIndent: 10)),
-                  Text('or'),
-                  Expanded(child: Divider(indent: 10, endIndent: 20)),
-                ],
-              ),
-              SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _socialButton('assets/facebook.png'),
-                    _socialButton('assets/google.png'),
-                    _socialButton('assets/apple.png'),
-                  ],
-                ),
-              ),
-              SizedBox(height: 30),
-              Text('New to Carrefour?'),
-              GestureDetector(
-                onTap: () {
-                  print('Navigating to signup...');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignupPage()),
-                  );
-                },
-                child: Text(
-                  'Sign up for a new account',
-                  style: TextStyle(
-                      color: Colors.blue, fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(height: 30),
-            ],
+              ],
+            ),
           ),
         ),
       ),

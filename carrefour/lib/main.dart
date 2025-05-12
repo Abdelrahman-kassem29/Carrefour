@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'more.dart'; // Import your MorePage class here
+import 'more.dart';
+import 'category.dart';
+import 'promotions_notifications.dart';
 
 void main() => runApp(MyApp());
 
@@ -26,9 +28,26 @@ class HomePage extends StatelessWidget {
           children: [
             Row(
               children: [
-                DeliveryOptionButton(label: 'Scheduled Delivery'),
+                Image.asset(
+                  'assets/logo.png', // Replace with your logo asset
+                  height: 30,
+                ),
                 SizedBox(width: 10),
-                DeliveryOptionButton(label: 'NOW Delivery', isSelected: false),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search for products',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                    ),
+                  ),
+                ),
               ],
             ),
             Icon(Icons.qr_code, color: Colors.black),
@@ -60,10 +79,25 @@ class HomePage extends StatelessWidget {
         currentIndex: 0,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-          if (index == 4) {
+          if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => MorePage()), // Navigate to MorePage
+              MaterialPageRoute(
+                builder: (context) =>
+                    CategoryPage(categoryName: "All Categories"),
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DealsPage(),
+              ),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MorePage()),
             );
           }
         },
@@ -81,24 +115,77 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class DeliveryOptionButton extends StatelessWidget {
-  final String label;
-  final bool isSelected;
-
-  DeliveryOptionButton({required this.label, this.isSelected = true});
+class CategoryGrid extends StatelessWidget {
+  final List<Map<String, String>> categories = [
+    {'label': 'Smashing Prices', 'image': 'assets/smashing_prices.png'},
+    {'label': 'Hot Prices', 'image': 'assets/hot_prices.png'},
+    {'label': 'Best Sellers', 'image': 'assets/best_sellers.png'},
+    {'label': 'Grocery Essentials', 'image': 'assets/grocery_essentials.png'},
+    {'label': 'TVs', 'image': 'assets/tvs.png'},
+    {'label': 'Large Appliances', 'image': 'assets/large_appliances.png'},
+    {'label': 'Meat & Poultry', 'image': 'assets/meat_poultry.png'},
+    {'label': 'Cold Cuts', 'image': 'assets/cold_cuts.png'},
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.blue : Colors.grey[300],
-        borderRadius: BorderRadius.circular(20),
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        childAspectRatio: 0.8,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
       ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: isSelected ? Colors.white : Colors.black,
+      itemCount: categories.length,
+      itemBuilder: (context, index) {
+        final category = categories[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    CategoryPage(categoryName: category['label']!),
+              ),
+            );
+          },
+          child: Column(
+            children: [
+              CircleAvatar(
+                radius: 30,
+                backgroundImage: AssetImage(category['image']!),
+              ),
+              SizedBox(height: 5),
+              Text(
+                category['label']!,
+                style: TextStyle(fontSize: 12),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class CategoryPage extends StatelessWidget {
+  final String categoryName;
+
+  CategoryPage({required this.categoryName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(categoryName),
+      ),
+      body: Center(
+        child: Text(
+          'Welcome to $categoryName category!',
+          style: TextStyle(fontSize: 18),
         ),
       ),
     );
@@ -157,7 +244,7 @@ class BannerCard extends StatelessWidget {
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(
-          image: AssetImage('assets/banner_placeholder.png'), // Replace with your asset
+          image: AssetImage('assets/banner_placeholder.png'),
           fit: BoxFit.cover,
         ),
       ),
@@ -179,51 +266,6 @@ class InfoButton extends StatelessWidget {
         SizedBox(height: 5),
         Text(label, style: TextStyle(fontSize: 12)),
       ],
-    );
-  }
-}
-
-class CategoryGrid extends StatelessWidget {
-  final List<Map<String, String>> categories = [
-    {'label': 'Smashing Prices', 'image': 'assets/smashing_prices.png'},
-    {'label': 'Hot Prices', 'image': 'assets/hot_prices.png'},
-    {'label': 'Best Sellers', 'image': 'assets/best_sellers.png'},
-    {'label': 'Grocery Essentials', 'image': 'assets/grocery_essentials.png'},
-    {'label': 'TVs', 'image': 'assets/tvs.png'},
-    {'label': 'Large Appliances', 'image': 'assets/large_appliances.png'},
-    {'label': 'Meat & Poultry', 'image': 'assets/meat_poultry.png'},
-    {'label': 'Cold Cuts', 'image': 'assets/cold_cuts.png'},
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        childAspectRatio: 0.8,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-      ),
-      itemCount: categories.length,
-      itemBuilder: (context, index) {
-        final category = categories[index];
-        return Column(
-          children: [
-            CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage(category['image']!), // Replace with your asset
-            ),
-            SizedBox(height: 5),
-            Text(
-              category['label']!,
-              style: TextStyle(fontSize: 12),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        );
-      },
     );
   }
 }
