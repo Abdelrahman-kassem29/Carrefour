@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Image.asset(
-                        'assets/logo.png',
+                        'assets/logoWide.png',
                         height: 60,
                       ),
                       SizedBox(height: 20),
@@ -74,14 +74,19 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _socialButton('assets/facebook.png'),
-                          _socialButton('assets/google.png'),
-                          _socialButton('assets/apple.png'),
-                        ],
-                      ),
+                      SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _socialButton('assets/facebook.png'),
+                        _socialButton('assets/google.png'),
+                        _socialButton('assets/apple.png'),
+                      ],
+                    ),
+                 ),
+
+                      
                       SizedBox(height: 30),
                       Text('New to Carrefour?'),
                       SizedBox(height: 8),

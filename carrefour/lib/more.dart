@@ -25,12 +25,27 @@ class MorePage extends StatelessWidget {
               SizedBox(height: 16),
 
               // Leaflets
-              Text('Leaflets (2)', style: Theme.of(context).textTheme.titleMedium),
-              SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset('assets/images/leaflet_banner.png'), // Replace with your asset
-              ),
+             Text(
+            'Leaflets (2)',
+             style: Theme.of(context).textTheme.titleMedium,
+  ),
+             SizedBox(height: 8),
+             ClipRRect(
+             borderRadius: BorderRadius.circular(8),
+             child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Image.asset('assets/leaf1.1.jpeg'),
+                  SizedBox(width: 16), // Add space between the two images
+                  Image.asset('assets/leaf2.1.jpeg'),
+        ],
+        ),
+      ),
+  ),
+
+
+              
               SizedBox(height: 12),
 
               // Login/Register Button

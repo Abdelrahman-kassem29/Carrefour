@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
     'Gambian', 'Georgian', 'German', 'Ghanaian', 'Greek', 'Grenadian',
     'Guatemalan', 'Guinean', 'Guyanese', 'Haitian', 'Honduran', 'Hungarian',
     'Icelandic', 'Indian', 'Indonesian', 'Iranian', 'Iraqi', 'Irish',
-     'Italian', 'Ivorian', 'Jamaican', 'Japanese', 'Jordanian',
+    'Italian', 'Ivorian', 'Jamaican', 'Japanese', 'Jordanian',
     'Kazakh', 'Kenyan', 'Kuwaiti', 'Kyrgyz', 'Laotian', 'Latvian',
     'Lebanese', 'Liberian', 'Libyan', 'Lithuanian', 'Luxembourger',
     'Malagasy', 'Malawian', 'Malaysian', 'Maldivian', 'Malian', 'Maltese',
@@ -56,7 +57,7 @@ class _SignupPageState extends State<SignupPage> {
           key: _formKey,
           child: Column(
             children: [
-              Image.asset('assets/images/carrefour_logo.png', height: 50),
+              Image.asset('assets/logoWide.png', height: 100),
               const SizedBox(height: 12),
               const Text('Create new account',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -87,7 +88,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     child: Row(
                       children: [
-                        Image.asset('assets/images/egypt_flag.png', width: 24),
+                        Image.asset('assets/egyflag.png', width: 24),
                         const SizedBox(width: 8),
                         const Text('+20'),
                       ],
@@ -126,25 +127,27 @@ class _SignupPageState extends State<SignupPage> {
               ),
 
               const SizedBox(height: 16),
-              _textField(label: 'Date of birth (Optional)'),
+              _textField(label: 'Date of birth (Optional)',),
 
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
-  value: selectedNationality,
-  onChanged: (value) {
-    selectedNationality = value!;
-  },
-  decoration: InputDecoration(
-    labelText: 'Nationality (Optional)',
-    border: OutlineInputBorder(),
-  ),
-  items: nationalities.map((nationality) {
-    return DropdownMenuItem(
-      value: nationality,
-      child: Text(nationality),
-    );
-  }).toList(),
-),
+                value: selectedNationality,
+                onChanged: (value) {
+                  setState(() {
+                    selectedNationality = value!;
+                  });
+                },
+                decoration: InputDecoration(
+                  labelText: 'Nationality (Optional)',
+                  border: OutlineInputBorder(),
+                ),
+                items: nationalities.map((nationality) {
+                  return DropdownMenuItem(
+                    value: nationality,
+                    child: Text(nationality),
+                  );
+                }).toList(),
+              ),
 
               const SizedBox(height: 16),
               Row(
@@ -162,17 +165,21 @@ class _SignupPageState extends State<SignupPage> {
                           TextSpan(
                             text: 'Terms & conditions',
                             style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _showTermsDialog(context),
                           ),
                           const TextSpan(text: ' and '),
                           TextSpan(
                             text: 'Privacy policy',
                             style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () => _showPrivacyPolicyDialog(context),
                           ),
                           const TextSpan(text: '.'),
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
 
@@ -184,7 +191,7 @@ class _SignupPageState extends State<SignupPage> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
+                  backgroundColor: const Color.fromARGB(255, 40, 2, 234),
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -193,12 +200,12 @@ class _SignupPageState extends State<SignupPage> {
                 child: const Text(
                   'Register',
                   style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white, // Set the text color to white
-                 ),
-              ),
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
-              
+              ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -208,7 +215,7 @@ class _SignupPageState extends State<SignupPage> {
                       Navigator.pop(context); // Go to login
                     },
                     child: const Text('Log In', style: TextStyle(color: Colors.blue)),
-                  )
+                  ),
                 ],
               ),
             ],
@@ -253,20 +260,44 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  Widget _dropdownField({
-    required String label,
-    required List<String> items,
-    String? value,
-    required ValueChanged<String?> onChanged,
-  }) {
-    return DropdownButtonFormField<String>(
-      value: value,
-      decoration: InputDecoration(
-        labelText: label,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-      ),
-      items: items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
-      onChanged: onChanged,
+  // Placeholder methods for showing the dialogs
+  void _showTermsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Terms & Conditions'),
+          content: Text('By using our services, you agree to comply with our terms and conditions. These terms govern your access and use of our platform, and any content or services provided. You agree not to engage in any illegal activities or misuse the platform. We reserve the right to modify or update these terms at any time. Your continued use of our services signifies your acceptance of any changes. Please read our terms carefully before using the platform.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showPrivacyPolicyDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Privacy Policy'),
+          content: Text('Your privacy is important to us. We collect personal information such as your name, email, and contact details solely for the purpose of providing a better service and improving your user experience. We will never share your personal data with third parties without your consent, except as required by law. We take appropriate measures to protect your data and ensure its security. By using our services, you consent to the collection and use of your information as outlined in this policy'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
