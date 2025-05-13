@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'more.dart';
 import 'category.dart';
 import 'promotions_notifications.dart';
+import 'cart.dart'; // Import the CartPage
 
 void main() => runApp(MyApp());
 
@@ -94,6 +95,13 @@ class HomePage extends StatelessWidget {
                 builder: (context) => DealsPage(),
               ),
             );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartPage(), // Navigate to CartPage
+              ),
+            );
           } else if (index == 4) {
             Navigator.push(
               context,
@@ -126,13 +134,10 @@ class CategoryGrid extends StatelessWidget {
     {'label': 'Chocolate & Snacks', 'image': 'assets/chocolates.jpeg'},
     {'label': 'Grocery Essentials', 'image': 'assets/grocery.jpeg'},
     {'label': 'Meat & Poultry', 'image': 'assets/meat.jpeg'},
-
-
     {'label': 'Laundry & Detergents', 'image': 'assets/laundry.jpg'},
     {'label': 'Cleaning Essentials', 'image': 'assets/cleaning.jpeg'},
     {'label': 'Frozen Food', 'image': 'assets/frozenfood.jpeg'},
-    {'label': 'bevarage', 'image': 'assets/bevarages.jpeg'},
-
+    {'label': 'Bevarage', 'image': 'assets/bevarages.jpeg'},
     {'label': 'Cold Cuts', 'image': 'assets/coldcuts.jpeg'},
     {'label': 'Fruits & Vegetables', 'image': 'assets/fruit.jpeg'},
     {'label': 'Personal Care', 'image': 'assets/personalcare.jpeg'},
