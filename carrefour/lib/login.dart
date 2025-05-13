@@ -5,7 +5,16 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: BackButton(), backgroundColor: Colors.white, elevation: 0),
+      appBar: AppBar(
+        leading: BackButton(),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        title: Image.asset(
+          'assets/logoWide.png',
+          height: 80, // Adjust height to fit within the app bar
+        ),
+        centerTitle: true, // Center the logo in the app bar
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -14,23 +23,18 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 // Spacing after back button
                 Center(
                   child: Column(
                     children: [
-                      Image.asset(
-                        'assets/logoWide.png',
-                        height: 60,
-                      ),
-                      SizedBox(height: 20),
-                      Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF005BAC),
-                        ),
-                      ),
+                      SizedBox(height: 20), // Add spacing after app bar
+                      // Text(
+                      //   'Login',
+                      //   style: TextStyle(
+                      //     fontSize: 24,
+                      //     fontWeight: FontWeight.bold,
+                      //     color: Color(0xFF005BAC),
+                      //   ),
+                      // ),
                       SizedBox(height: 10),
                       Text(
                         'Get access to over 190,000\nquality products',
@@ -75,18 +79,16 @@ class LoginPage extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        _socialButton('assets/facebook.png'),
-                        _socialButton('assets/google.png'),
-                        _socialButton('assets/apple.png'),
-                      ],
-                    ),
-                 ),
-
-                      
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            _socialButton('assets/facebook.png'),
+                            _socialButton('assets/google.png'),
+                            _socialButton('assets/apple.png'),
+                          ],
+                        ),
+                      ),
                       SizedBox(height: 30),
                       Text('New to Carrefour?'),
                       SizedBox(height: 8),
@@ -105,6 +107,18 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
+                      // Fill the bottom space with the image
+                      Container(
+                        width: double.infinity, // Fill the width
+                        height: MediaQuery.of(context).size.height * 0.3, // Set the height to cover 30% of the screen height
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/loginpage.png'),
+                            fit: BoxFit.cover, // Ensure it covers the space without distortion
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30), // Add space below the image if needed
                     ],
                   ),
                 ),
