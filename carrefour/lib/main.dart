@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Image.asset(
                   'assets/logo.png', // Replace with your logo asset
-                  height: 30,
+                  height: 80,
                 ),
                 SizedBox(width: 10),
                 Container(
@@ -62,15 +62,22 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 10),
           PromoCard(),
           SizedBox(height: 10),
-          BannerCard(),
-          SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InfoButton(label: 'Join MyClub', icon: Icons.person),
-              InfoButton(label: 'Carrefour Leaflet', icon: Icons.book),
-              InfoButton(label: 'Scan', icon: Icons.qr_code_scanner),
-            ],
+          // Horizontal scrollable BannerCards
+          Container(
+            height: 150,  // The height of the banner
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  BannerCard(imagePath: 'assets/smashingprices2.jpeg'), 
+                  BannerCard(imagePath: 'assets/exclusiveonline.jpeg'), 
+                  BannerCard(imagePath: 'assets/smashingprices3.jpeg'), 
+                  BannerCard(imagePath: 'assets/essentialbudgets.jpeg'), 
+                  BannerCard(imagePath: 'assets/bulksave.jpeg'), 
+                  BannerCard(imagePath: 'assets/freedelivary.jpeg'),
+                ],
+              ),
+            ),
           ),
           SizedBox(height: 20),
           CategoryGrid(),
@@ -126,10 +133,9 @@ class HomePage extends StatelessWidget {
 class CategoryGrid extends StatelessWidget {
   final List<Map<String, String>> categories = [
     {'label': 'Smashing Prices', 'image': 'assets/smashinprices.jpeg'},
-    {'label': 'Hot Prices', 'image': 'assets/bestprices.avif'},
+    {'label': 'Hot Prices', 'image': 'assets/bestprices.jpeg'},
     {'label': 'Best Sellers', 'image': 'assets/bestsellers.jpeg'},
     {'label': 'Bulk Savings', 'image': 'assets/bulkdeals.jpeg'},
-
     {'label': 'Coupons Zone', 'image': 'assets/grocery_essentials.png'},
     {'label': 'Chocolate & Snacks', 'image': 'assets/chocolates.jpeg'},
     {'label': 'Grocery Essentials', 'image': 'assets/grocery.jpeg'},
@@ -253,15 +259,21 @@ class PromoCard extends StatelessWidget {
 }
 
 class BannerCard extends StatelessWidget {
+  final String imagePath;
+
+  BannerCard({required this.imagePath});
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 500,  // You can adjust the width as needed for each banner card
+      margin: EdgeInsets.symmetric(horizontal: 8),
       height: 150,
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(10),
         image: DecorationImage(
-          image: AssetImage('assets/banner_placeholder.png'),
+          image: AssetImage(imagePath),
           fit: BoxFit.cover,
         ),
       ),
@@ -277,12 +289,19 @@ class InfoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Icon(icon, size: 40, color: Colors.blue),
-        SizedBox(height: 5),
-        Text(label, style: TextStyle(fontSize: 12)),
-      ],
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 24, color: Colors.blue), // Icon before text
+          SizedBox(width: 8), // Space between icon and text
+          Text(
+            label,
+            style: TextStyle(fontSize: 12),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -43,10 +43,10 @@ class DealsPage extends StatelessWidget {
   Widget offerCircles() {
   final List<Map<String, String>> offers = [
     {'image': 'assets/smashinprices.jpeg', 'text': 'Smashing\nPrices'},
-    {'image': 'assets/hot_prices.png', 'text': 'Hot\nPrices!'},
+    {'image': 'assets/bestprices.jpeg', 'text': 'Hot\nPrices!'},
     {'image': 'assets/bestsellers.jpeg', 'text': 'Best\nSellers!'},
-    {'image': 'assets/online_leaflet.png', 'text': 'Online\nLeaflet'},
-    {'image': 'assets/budgetstore.avif', 'text': 'Budget\nStore'},
+    {'image': 'assets/onlineleaflet.jpeg', 'text': 'Online\nLeaflet'},
+    {'image': 'assets/budgetstore.jpeg', 'text': 'Budget\nStore'},
     {'image': 'assets/newarrivals.jpeg', 'text': 'New\nArrivals'},
     {'image': 'assets/carrefourproduct.jpeg', 'text': 'Carrefour\nProducts'},
     {'image': 'assets/bulkdeals.jpeg', 'text': 'Bulk\nSaving'},

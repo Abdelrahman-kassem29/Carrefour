@@ -68,8 +68,8 @@ flutter:
    - assets/tv.jpeg
    - assets/leaf1.1.jpeg
    - assets/leaf2.1.jpeg
-   - assets/bestsellers.avif
-   - assets/budgetstore.avif
+   - assets/bestsellers.jpeg
+   - assets/budgetstore.jpeg
    - assets/carrefourproduct.jpeg
    - assets/newarrivals.jpeg
    - assets/smashinprices.jpeg
@@ -87,6 +87,15 @@ flutter:
    - assets/personalcare.jpeg
    - assets/baby.jpg
    - assets/loginpage.png
+   - assets/scan.png
+   - assets/myclub.png
+   - assets/onlineleaflet.jpeg
+   - assets/bulksave.jpeg
+   - assets/essentialbudgets.jpeg
+   - assets/exclusiveonline.jpeg
+   - assets/freedelivary.jpeg
+   - assets/smashingprices2.jpeg
+   - assets/smashingprices3.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
