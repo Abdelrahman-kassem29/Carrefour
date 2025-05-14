@@ -1,11 +1,25 @@
 import 'dart:async';
+import 'package:carrefour/baby_products.dart';
+import 'package:carrefour/best_sellers.dart';
+import 'package:carrefour/beverage.dart';
+import 'package:carrefour/bulk_savings.dart';
+import 'package:carrefour/chocolate.dart';
+import 'package:carrefour/cleaning.dart';
+import 'package:carrefour/cold_cuts.dart';
+import 'package:carrefour/frozen.dart';
+import 'package:carrefour/fruits.dart';
+import 'package:carrefour/grocery.dart';
+import 'package:carrefour/hot_prices.dart';
+import 'package:carrefour/laundry.dart';
+import 'package:carrefour/meat.dart';
+import 'package:carrefour/personal_care.dart';
 import 'package:carrefour/smashing_prices.dart';
 import 'package:flutter/material.dart';
 import 'more.dart';
 import 'category.dart';
 import 'promotions_notifications.dart';
 import 'cart.dart'; 
-import 'smashing_prices.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -78,8 +92,7 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    CategoryPage(categoryName: "All Categories"),
+                builder: (context) => CategoryPage(categoryName: "All Categories"),
               ),
             );
           } else if (index == 2) {
@@ -218,6 +231,76 @@ class CategoryGrid extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SmashingPricesPage()),
+              );
+            }else if (category['label'] == 'Hot Prices') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HotPricesPage()),
+              );
+            } else if (category['label'] == 'Best Sellers') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BestSellersPage()),
+              );
+            } else if (category['label'] == 'Bulk Savings') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BulkSavingsPage()),
+              );
+            } else if (category['label'] == 'Chocolate & Snacks') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ChocolatePage()),
+              );
+            } else if (category['label'] == 'Grocery Essentials') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GroceryPage()),
+              );
+            } else if (category['label'] == 'Meat & Poultry') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MeatPage()),
+              );
+            } else if (category['label'] == 'Laundry & Detergents') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LaundryPage()),
+              );
+            } else if (category['label'] == 'Cleaning Essentials') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CleaningPage()),
+              );
+            } else if (category['label'] == 'Frozen Food') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FrozenPage()),
+              );
+            } else if (category['label'] == 'Beverage') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Beverage()),
+              );
+            } else if (category['label'] == 'Cold Cuts') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ColdCutsPage()),
+              );
+            } else if (category['label'] == 'Fruits & Vegetables') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FruitsPage()),
+              );
+            } else if (category['label'] == 'Personal Care') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PersonalCarePage()),
+              );
+            } else if (category['label'] == 'Baby Products') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => BabyProductsPage()),
               );
             } else {
               Navigator.push(

@@ -4,7 +4,7 @@ import 'category.dart';
 import 'promotions_notifications.dart';
 import 'cart.dart';
 
-class SmashingPricesPage extends StatelessWidget {
+class FrozenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
