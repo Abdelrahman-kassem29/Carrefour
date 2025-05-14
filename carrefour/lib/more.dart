@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'login.dart'; // Make sure this file exists and matches the Login UI
+import 'login.dart'; 
+import 'main.dart'; 
+import 'promotions_notifications.dart'; 
+import 'cart.dart'; 
 
 class MorePage extends StatelessWidget {
   @override
@@ -25,27 +28,24 @@ class MorePage extends StatelessWidget {
               SizedBox(height: 16),
 
               // Leaflets
-             Text(
-            'Leaflets (2)',
-             style: Theme.of(context).textTheme.titleMedium,
-  ),
-             SizedBox(height: 8),
-             ClipRRect(
-             borderRadius: BorderRadius.circular(8),
-             child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Image.asset('assets/leaf1.1.jpeg'),
-                  SizedBox(width: 16), // Add space between the two images
-                  Image.asset('assets/leaf2.1.jpeg'),
-        ],
-        ),
-      ),
-  ),
-
-
-              
+              Text(
+                'Leaflets (2)',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(height: 8),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      Image.asset('assets/leaf1.1.jpeg'),
+                      SizedBox(width: 16), // Add space between the two images
+                      Image.asset('assets/leaf2.1.jpeg'),
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 12),
 
               // Login/Register Button
@@ -87,6 +87,48 @@ class MorePage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 4,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(), 
+              ),
+            );
+          } else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DealsPage(),
+              ),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartPage(), 
+              ),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MorePage()),
+            );
+          }
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category), label: 'Categories'),
+          BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: 'Deals'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
+        ],
+      ),
     );
   }
 
@@ -98,7 +140,6 @@ class MorePage extends StatelessWidget {
       onTap: () {
         // Add navigation or action here
       },
-      
     );
   }
 }

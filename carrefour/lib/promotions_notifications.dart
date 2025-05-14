@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'more.dart';
+import 'category.dart';
+import 'cart.dart'; 
+import 'main.dart';
 
 class DealsPage extends StatelessWidget {
   const DealsPage({Key? key}) : super(key: key);
@@ -27,6 +31,48 @@ class DealsPage extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 2,
+        type: BottomNavigationBarType.fixed,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(), 
+              ),
+            );
+          }else if (index == 2) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DealsPage(),
+              ),
+            );
+          } else if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CartPage(), 
+              ),
+            );
+          } else if (index == 4) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MorePage()),
+            );
+          }
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.category), label: 'Categories'),
+          BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: 'Deals'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
+        ],
+      ),
     );
   }
 
@@ -41,63 +87,63 @@ class DealsPage extends StatelessWidget {
   }
 
   Widget offerCircles() {
-  final List<Map<String, String>> offers = [
-    {'image': 'assets/smashinprices.jpeg', 'text': 'Smashing\nPrices'},
-    {'image': 'assets/bestprices.jpeg', 'text': 'Hot\nPrices!'},
-    {'image': 'assets/bestsellers.jpeg', 'text': 'Best\nSellers!'},
-    {'image': 'assets/onlineleaflet.jpeg', 'text': 'Online\nLeaflet'},
-    {'image': 'assets/budgetstore.jpeg', 'text': 'Budget\nStore'},
-    {'image': 'assets/newarrivals.jpeg', 'text': 'New\nArrivals'},
-    {'image': 'assets/carrefourproduct.jpeg', 'text': 'Carrefour\nProducts'},
-    {'image': 'assets/bulkdeals.jpeg', 'text': 'Bulk\nSaving'},
-  ];
+    final List<Map<String, String>> offers = [
+      {'image': 'assets/smashinprices.jpeg', 'text': 'Smashing\nPrices'},
+      {'image': 'assets/bestprices.jpeg', 'text': 'Hot\nPrices!'},
+      {'image': 'assets/bestsellers.jpeg', 'text': 'Best\nSellers!'},
+      {'image': 'assets/onlineleaflet.jpeg', 'text': 'Online\nLeaflet'},
+      {'image': 'assets/budgetstore.jpeg', 'text': 'Budget\nStore'},
+      {'image': 'assets/newarrivals.jpeg', 'text': 'New\nArrivals'},
+      {'image': 'assets/carrefourproduct.jpeg', 'text': 'Carrefour\nProducts'},
+      {'image': 'assets/bulkdeals.jpeg', 'text': 'Bulk\nSaving'},
+    ];
 
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 12),
-    child: GridView.builder(
-      shrinkWrap: true, // Allows the grid to fit within the screen
-      physics: const NeverScrollableScrollPhysics(), // Prevents scrolling inside the grid
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4, // 4 circles per row
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1, // Ensures circles and titles fit well
-      ),
-      itemCount: offers.length,
-      itemBuilder: (context, index) {
-        final offer = offers[index];
-        return Column(
-          children: [
-            ClipOval(
-              child: Image.asset(
-                offer['image']!,
-                width: 60,
-                height: 60,
-                fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          childAspectRatio: 1,
+        ),
+        itemCount: offers.length,
+        itemBuilder: (context, index) {
+          final offer = offers[index];
+          return Column(
+            children: [
+              ClipOval(
+                child: Image.asset(
+                  offer['image']!,
+                  width: 60,
+                  height: 60,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              offer['text']!,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ],
-        );
-      },
-    ),
-  );
-}
+              const SizedBox(height: 8),
+              Text(
+                offer['text']!,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 12),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
 
   Widget topOffersList() {
     final List<Map<String, dynamic>> topOffers = [
-      {'name': 'Ariel Detergent', 'price': 339.95, 'oldPrice': 404.00, 'discount': '16%'},
-      {'name': 'Great Cup Burgers', 'price': 119.95, 'oldPrice': 178.00, 'discount': '33%'},
-      {'name': 'Rice Bag', 'price': 38.95, 'oldPrice': 44.50, 'discount': '12%'},
+      {'name': 'Ariel Automatic Powder Detergent - Lavender Scent - 4.5 kg', 'price': 339.95, 'oldPrice': 404.00, 'discount': '16%', 'image': 'assets/ariel.webp'},
+      {'name': 'Halwani Beef Burger - 1 kg - 20 Pieaces', 'price': 183.95, 'oldPrice': 281.00, 'discount': '35%', 'image': 'assets/burger.jpeg'},
+      {'name': 'Al Doha Egyptian Rice - 1kg', 'price': 38.95, 'oldPrice': 44.50, 'discount': '12%', 'image': 'assets/rice.jpg'},
     ];
 
     return SizedBox(
-      height: 180,
+      height: 320,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -115,6 +161,16 @@ class DealsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    offer['image'],
+                    width: double.infinity,
+                    height: 130,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
@@ -146,57 +202,58 @@ class DealsPage extends StatelessWidget {
 
   Widget essentialsBanners() {
     final List<Map<String, String>> banners = [
-      {'text': 'UP TO 35% OFF\nFood Essentials Zone', 'color': 'red'},
-      {'text': 'Dairy Products\nUp to 25% OFF', 'color': 'blue'},
-      {'text': 'Snacks Zone\nSave Big', 'color': 'green'},
+      {'image': 'assets/fce1.jpg'},
+      {'image': 'assets/fce2.jpg'},
+      {'image': 'assets/fce3.jpg'},
+      {'image': 'assets/fce4.jpg'},
+      {'image': 'assets/fce5.jpg'},
+      {'image': 'assets/fce6.jpg'},
+      {'image': 'assets/fce7.jpg'},
+      {'image': 'assets/fce8.jpg'},
+      {'image': 'assets/fce9.jpg'},
+      {'image': 'assets/fce10.jpg'},
+      {'image': 'assets/fce11.jpg'},
     ];
 
-    return SizedBox(
-      height: 150,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: banners.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 10),
-        itemBuilder: (context, index) {
-          final banner = banners[index];
-          final color = banner['color'] == 'red'
-              ? Colors.red
-              : banner['color'] == 'blue'
-                  ? Colors.blue[400]
-                  : Colors.green[400];
-          return Container(
-            width: 250,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Center(
-              child: Text(
-                banner['text']!,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
-                textAlign: TextAlign.center,
+    return Padding(
+      padding: const EdgeInsets.all(12), // Uniform padding for the entire widget
+      child: SizedBox(
+        height: 500,
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          itemCount: banners.length,
+          separatorBuilder: (_, __) => const SizedBox(width: 12), // Consistent spacing between items
+          itemBuilder: (context, index) {
+            final banner = banners[index];
+
+            return Container(
+              width: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(22),
               ),
-            ),
-          );
-        },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(22),
+                child: Image.asset(
+                  banner['image']!,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget topSellingList() {
     final List<Map<String, dynamic>> products = [
-      {'name': 'Kata Choco Bar', 'price': 5.00, 'oldPrice': 5.80, 'discount': '14%'},
-      {'name': 'Dolphin Tuna', 'price': 25.00, 'oldPrice': 29.00, 'discount': '14%'},
-      {'name': 'Water Bottle', 'price': 6.95, 'oldPrice': 8.40, 'discount': '17%'},
+      {'name': 'Kata Kito', 'price': 5.00, 'oldPrice': 5.80, 'discount': '14%', 'image': 'assets/katakito.jpeg'},
+      {'name': 'Dolphin Tuna', 'price': 25.00, 'oldPrice': 29.00, 'discount': '14%', 'image': 'assets/tuna.jpeg'},
+      {'name': 'Water Bottle', 'price': 6.95, 'oldPrice': 8.40, 'discount': '17%', 'image': 'assets/water.jpg'},
     ];
 
     return SizedBox(
-      height: 180,
+      height: 220,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -214,6 +271,16 @@ class DealsPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.asset(
+                    product['image'],
+                    width: double.infinity,
+                    height: 80,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(

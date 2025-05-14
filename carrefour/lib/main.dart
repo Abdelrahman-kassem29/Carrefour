@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'package:carrefour/smashing_prices.dart';
 import 'package:flutter/material.dart';
 import 'more.dart';
 import 'category.dart';
 import 'promotions_notifications.dart';
-import 'cart.dart'; // Import the CartPage
+import 'cart.dart'; 
+import 'smashing_prices.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,7 +33,7 @@ class HomePage extends StatelessWidget {
             Row(
               children: [
                 Image.asset(
-                  'assets/logo.png', // Replace with your logo asset
+                  'assets/logo.png',
                   height: 80,
                 ),
                 SizedBox(width: 10),
@@ -62,23 +65,7 @@ class HomePage extends StatelessWidget {
           SizedBox(height: 10),
           PromoCard(),
           SizedBox(height: 10),
-          // Horizontal scrollable BannerCards
-          Container(
-            height: 150,  // The height of the banner
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  BannerCard(imagePath: 'assets/smashingprices2.jpeg'), 
-                  BannerCard(imagePath: 'assets/exclusiveonline.jpeg'), 
-                  BannerCard(imagePath: 'assets/smashingprices3.jpeg'), 
-                  BannerCard(imagePath: 'assets/essentialbudgets.jpeg'), 
-                  BannerCard(imagePath: 'assets/bulksave.jpeg'), 
-                  BannerCard(imagePath: 'assets/freedelivary.jpeg'),
-                ],
-              ),
-            ),
-          ),
+          AutoScrollingBanner(),
           SizedBox(height: 20),
           CategoryGrid(),
         ],
@@ -106,7 +93,7 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CartPage(), // Navigate to CartPage
+                builder: (context) => CartPage(),
               ),
             );
           } else if (index == 4) {
@@ -118,12 +105,73 @@ class HomePage extends StatelessWidget {
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category), label: 'Categories'),
+          BottomNavigationBarItem(icon: Icon(Icons.category), label: 'Categories'),
           BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: 'Deals'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: 'Cart'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
           BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
+        ],
+      ),
+    );
+  }
+}
+
+class AutoScrollingBanner extends StatefulWidget {
+  @override
+  _AutoScrollingBannerState createState() => _AutoScrollingBannerState();
+}
+
+class _AutoScrollingBannerState extends State<AutoScrollingBanner> {
+  final ScrollController _scrollController = ScrollController();
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoScroll();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoScroll() {
+    _timer = Timer.periodic(const Duration(seconds: 3), (_) {
+      if (_scrollController.hasClients) {
+        double maxScrollExtent = _scrollController.position.maxScrollExtent;
+        double currentPosition = _scrollController.offset;
+
+        double nextPosition = currentPosition + MediaQuery.of(context).size.width;
+
+        if (nextPosition >= maxScrollExtent) {
+          nextPosition = 0;
+        }
+
+        _scrollController.animateTo(
+          nextPosition,
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 150,
+      child: ListView(
+        controller: _scrollController,
+        scrollDirection: Axis.horizontal,
+        children: [
+          BannerCard(imagePath: 'assets/smashingprices2.jpeg'),
+          BannerCard(imagePath: 'assets/exclusiveonline.jpeg'),
+          BannerCard(imagePath: 'assets/smashingprices3.jpeg'),
+          BannerCard(imagePath: 'assets/essentialbudgets.jpeg'),
+          BannerCard(imagePath: 'assets/bulksave.jpeg'),
+          BannerCard(imagePath: 'assets/freedelivary.jpeg'),
         ],
       ),
     );
@@ -136,14 +184,14 @@ class CategoryGrid extends StatelessWidget {
     {'label': 'Hot Prices', 'image': 'assets/bestprices.jpeg'},
     {'label': 'Best Sellers', 'image': 'assets/bestsellers.jpeg'},
     {'label': 'Bulk Savings', 'image': 'assets/bulkdeals.jpeg'},
-    {'label': 'Coupons Zone', 'image': 'assets/grocery_essentials.png'},
+    {'label': 'Coupons Zone', 'image': 'assets/coupons.jpg'},
     {'label': 'Chocolate & Snacks', 'image': 'assets/chocolates.jpeg'},
     {'label': 'Grocery Essentials', 'image': 'assets/grocery.jpeg'},
     {'label': 'Meat & Poultry', 'image': 'assets/meat.jpeg'},
     {'label': 'Laundry & Detergents', 'image': 'assets/laundry.jpg'},
     {'label': 'Cleaning Essentials', 'image': 'assets/cleaning.jpeg'},
     {'label': 'Frozen Food', 'image': 'assets/frozenfood.jpeg'},
-    {'label': 'Bevarage', 'image': 'assets/bevarages.jpeg'},
+    {'label': 'Beverage', 'image': 'assets/bevarages.jpeg'},
     {'label': 'Cold Cuts', 'image': 'assets/coldcuts.jpeg'},
     {'label': 'Fruits & Vegetables', 'image': 'assets/fruit.jpeg'},
     {'label': 'Personal Care', 'image': 'assets/personalcare.jpeg'},
@@ -166,13 +214,20 @@ class CategoryGrid extends StatelessWidget {
         final category = categories[index];
         return GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    CategoryPage(categoryName: category['label']!),
-              ),
-            );
+            if (category['label'] == 'Smashing Prices') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SmashingPricesPage()),
+              );
+            } else {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      CategoryPage(categoryName: category['label']!),
+                ),
+              );
+            }
           },
           child: Column(
             children: [
@@ -190,27 +245,6 @@ class CategoryGrid extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class CategoryPage extends StatelessWidget {
-  final String categoryName;
-
-  CategoryPage({required this.categoryName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(categoryName),
-      ),
-      body: Center(
-        child: Text(
-          'Welcome to $categoryName category!',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
     );
   }
 }
@@ -266,7 +300,7 @@ class BannerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 500,  // You can adjust the width as needed for each banner card
+      width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(horizontal: 8),
       height: 150,
       decoration: BoxDecoration(
@@ -281,26 +315,22 @@ class BannerCard extends StatelessWidget {
   }
 }
 
-class InfoButton extends StatelessWidget {
-  final String label;
-  final IconData icon;
+class CategoryPage extends StatelessWidget {
+  final String categoryName;
 
-  InfoButton({required this.label, required this.icon});
+  CategoryPage({required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 24, color: Colors.blue), // Icon before text
-          SizedBox(width: 8), // Space between icon and text
-          Text(
-            label,
-            style: TextStyle(fontSize: 12),
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(categoryName),
+      ),
+      body: Center(
+        child: Text(
+          'Welcome to $categoryName category!',
+          style: TextStyle(fontSize: 18),
+        ),
       ),
     );
   }
