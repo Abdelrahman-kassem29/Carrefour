@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategoryPage extends StatelessWidget {
+  final String categoryName;
+
+  CategoryPage({required this.categoryName});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,31 +13,11 @@ class CategoryPage extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         toolbarHeight: 60,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.schedule, color: Colors.blue),
-                SizedBox(width: 8),
-                Text(
-                  "Scheduled Delivery",
-                  style: TextStyle(color: Colors.blue, fontSize: 14),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.delivery_dining, color: Colors.grey),
-                SizedBox(width: 8),
-                Text(
-                  "NOW Delivery",
-                  style: TextStyle(color: Colors.grey, fontSize: 14),
-                ),
-              ],
-            ),
-          ],
+        title: Text(
+          categoryName,
+          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
