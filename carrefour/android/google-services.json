@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "118876820017",
+    "project_id": "carrefour-76210",
+    "storage_bucket": "carrefour-76210.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118876820017:android:a043baa4d268710ed9fb10",
+        "android_client_info": {
+          "package_name": "AndroidManifest.xml"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlZMfFu0jdoZrCEfuUYXOJcopoK37DLfA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
