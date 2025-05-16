@@ -1,7 +1,49 @@
 import 'package:flutter/material.dart';
-import 'signup.dart'; // Ensure this is the correct import
+import 'package:your_project_name/services/auth_service.dart'; // adjust import path
+import 'signup.dart'; // Your signup page
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final _emailController = TextEditingController();
+  final _authService = AuthService();
+
+  String _message = '';
+
+  void _login() async {
+    final email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      setState(() {
+        _message = 'Please enter your email';
+      });
+      return;
+    }
+
+    // For demo, just use a fixed dummy password or add a password field similarly
+    // Replace with your password field later
+    const dummyPassword = '123456';
+
+    var user = await _authService.signIn(email, dummyPassword);
+
+    setState(() {
+      if (user != null) {
+        _message = 'Welcome, ${user.email}';
+      } else {
+        _message = 'Login failed. Check your email/password.';
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,30 +53,22 @@ class LoginPage extends StatelessWidget {
         elevation: 0,
         title: Image.asset(
           'assets/logoWide.png',
-          height: 80, // Adjust height to fit within the app bar
+          height: 80,
         ),
-        centerTitle: true, // Center the logo in the app bar
+        centerTitle: true,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0), // Global padding for the screen
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
                   child: Column(
                     children: [
-                      SizedBox(height: 20), // Add spacing after app bar
-                      // Text(
-                      //   'Login',
-                      //   style: TextStyle(
-                      //     fontSize: 24,
-                      //     fontWeight: FontWeight.bold,
-                      //     color: Color(0xFF005BAC),
-                      //   ),
-                      // ),
+                      SizedBox(height: 20),
                       SizedBox(height: 10),
                       Text(
                         'Get access to over 190,000\nquality products',
@@ -43,20 +77,21 @@ class LoginPage extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0), // Input padding
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: TextField(
+                          controller: _emailController,
                           decoration: InputDecoration(
                             hintText: 'Email address',
                             border: OutlineInputBorder(),
                           ),
                         ),
                       ),
-                      SizedBox(height: 16), // Spacing between input and button
+                      SizedBox(height: 16),
                       SizedBox(
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF005BAC),
                           ),
@@ -67,6 +102,14 @@ class LoginPage extends StatelessWidget {
                               color: Colors.white,
                             ),
                           ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        _message,
+                        style: TextStyle(
+                          color: _message.contains('Welcome') ? Colors.green : Colors.red,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(height: 20),
@@ -94,7 +137,6 @@ class LoginPage extends StatelessWidget {
                       SizedBox(height: 8),
                       GestureDetector(
                         onTap: () {
-                          print('Navigating to signup...');
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => SignupPage()),
@@ -107,18 +149,17 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 30),
-                      // Fill the bottom space with the image
                       Container(
-                        width: double.infinity, // Fill the width
-                        height: MediaQuery.of(context).size.height * 0.3, // Set the height to cover 30% of the screen height
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.3,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: AssetImage('assets/loginpage.png'),
-                            fit: BoxFit.cover, // Ensure it covers the space without distortion
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      SizedBox(height: 30), // Add space below the image if needed
+                      SizedBox(height: 30),
                     ],
                   ),
                 ),
