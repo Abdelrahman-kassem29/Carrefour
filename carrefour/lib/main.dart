@@ -19,6 +19,7 @@ import 'more.dart';
 import 'category.dart';
 import 'promotions_notifications.dart';
 import 'cart.dart'; 
+// adjust the path if needed
 
 
 void main() => runApp(MyApp());
@@ -398,23 +399,5 @@ class BannerCard extends StatelessWidget {
   }
 }
 
-class CategoryPage extends StatelessWidget {
-  final String categoryName;
 
-  CategoryPage({required this.categoryName});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(categoryName),
-      ),
-      body: Center(
-        child: Text(
-          'Welcome to $categoryName category!',
-          style: TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
+  

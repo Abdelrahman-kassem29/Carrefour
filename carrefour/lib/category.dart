@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'promotions_notifications.dart';
 import 'cart.dart';
 import 'more.dart';
-
+import 'hot_prices.dart';
 
 class CategoryPage extends StatelessWidget {
   final String categoryName;
@@ -16,12 +16,37 @@ class CategoryPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        toolbarHeight: 60,
-        title: Text(
-          categoryName,
-          style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        toolbarHeight: 70,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                Image.asset(
+                  'assets/logo.png',
+                  height: 80,
+                ),
+                SizedBox(width: 10),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: 'Search for products',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Icon(Icons.qr_code, color: Colors.black),
+          ],
         ),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -29,28 +54,7 @@ class CategoryPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search Bar
-              Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.search, color: Colors.grey),
-                    SizedBox(width: 8),
-                    Text(
-                      "Search for products",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    Spacer(),
-                    Icon(Icons.qr_code_scanner, color: Colors.grey),
-                  ],
-                ),
-              ),
-              SizedBox(height: 16),
-              // Delivery Details
+              // Delivery Banner
               Row(
                 children: [
                   Icon(Icons.local_shipping, color: Colors.black),
@@ -65,7 +69,7 @@ class CategoryPage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 16),
-              // Offer Banner
+              // Promo Banner
               Container(
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -87,67 +91,47 @@ class CategoryPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 16),
-              // Featured Banner
-              Container(
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  image: DecorationImage(
-                    image: AssetImage('assets/banner.jpg'), // Replace with your asset path
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SizedBox(height: 16),
-              // Category Icons
-              Wrap(
-                spacing: 16,
-                runSpacing: 16,
-                children: [
-                  _categoryButton("Smashing Prices", Icons.local_offer),
-                  _categoryButton("Hot Prices", Icons.fireplace),
-                  _categoryButton("Best Selling", Icons.star),
-                  _categoryButton("Grocery Essentials", Icons.shopping_basket),
-                  _categoryButton("TVs", Icons.tv),
-                  _categoryButton("Large Appliances", Icons.kitchen),
-                  _categoryButton("Meat & Poultry", Icons.restaurant),
-                  _categoryButton("Cold Cuts", Icons.fastfood),
-                ],
-              ),
+
+              // Sections
+              _buildCategorySection(context, "Fresh Food", [
+                _categoryCard("Chilled Food", "assets/chilledfood.jpeg"),
+                _categoryCard("Dairy & Eggs", "assets/dairy.jpeg"),
+                _categoryCard("Fish & Seafood", "assets/fish.jpeg"),
+                _categoryCard("Meat & Poultry", "assets/meat.jpg"),
+              ]),
+              _buildCategorySection(context, "Fruits & Vegetables", [
+                _categoryCard("Fruits", "assets/fruit.jpeg"),
+                _categoryCard("Vegetables", "assets/vegetables.jpeg"),
+                _categoryCard("Herbs", "assets/herbs.png"),
+              ]),
+              _buildCategorySection(context, "Food Cupboard", [
+                _categoryCard("Biscuits", "assets/biscuit.jpeg"),
+                _categoryCard("Jars & Packets", "assets/tins.jpeg"),
+                _categoryCard("Breakfast Bars", "assets/cereals.jpeg"),
+                _categoryCard("Chips & Snacks", "assets/chips.jpeg"),
+              ]),
+              _buildCategorySection(context, "Beverages", [
+                _categoryCard("Water", "assets/water.jpeg"),
+                _categoryCard("Coffee", "assets/coffee.jpeg"),
+                _categoryCard("Tea", "assets/tea.jpeg"),
+                _categoryCard("Soft Drinks", "assets/bevarages.jpeg"),
+              ]),
             ],
           ),
         ),
       ),
-       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CategoryPage(categoryName: "All Categories"),
-              ),
-            );
+          if (index == 0) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
           } else if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => DealsPage(),
-              ),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => DealsPage()));
           } else if (index == 3) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CartPage(),
-              ),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
           } else if (index == 4) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MorePage()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => MorePage()));
           }
         },
         items: [
@@ -160,24 +144,54 @@ class CategoryPage extends StatelessWidget {
       ),
     );
   }
-}
 
-  Widget _categoryButton(String title, IconData icon) {
+  Widget _buildCategorySection(BuildContext context, String title, List<Widget> items) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
-          radius: 28,
-          backgroundColor: Colors.grey.shade200,
-          child: Icon(icon, color: Colors.black),
+        SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            // Text("View All", style: TextStyle(color: Colors.blue)),
+          ],
         ),
-        SizedBox(height: 8),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+        SizedBox(height: 10),
+        Wrap(
+          spacing: 10,
+          runSpacing: 10,
+          children: items,
         ),
       ],
     );
   }
 
+  Widget _categoryCard(String label, String imagePath) {
+    return Container(
+      width: 100,
+      child: Column(
+        children: [
+          Container(
+            height: 80,
+            width: 100,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+              image: DecorationImage(
+                image: AssetImage(imagePath),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          SizedBox(height: 6),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+}

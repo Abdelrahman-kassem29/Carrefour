@@ -1,115 +1,127 @@
+import 'package:carrefour/checkout.dart';
 import 'package:flutter/material.dart';
-import 'main.dart'; // Import your home page widget here
 import 'more.dart';
 import 'category.dart';
 import 'promotions_notifications.dart';
+// Simple Product model
+class Product {
+  final String id;
+  final String name;
+  final double price;
+  final String imageUrl;
 
-class CartPage extends StatelessWidget {
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.imageUrl,
+  });
+}
+
+class CartPage extends StatefulWidget {
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  // Sample cart items (in a real app, you'll get this from state management or backend)
+  List<Product> cartItems = [
+    Product(
+      id: '1',
+      name: 'Apple',
+      price: 3.5,
+      imageUrl: 'assets/fruit.jpeg',
+    ),
+    Product(
+      id: '2',
+      name: 'Chocolate Bar',
+      price: 5.0,
+      imageUrl: 'assets/chocolates.jpeg',
+    ),
+  ];
+
+  void _removeFromCart(String productId) {
+    setState(() {
+      cartItems.removeWhere((item) => item.id == productId);
+    });
+  }
+
+  double get totalPrice =>
+      cartItems.fold(0, (sum, item) => sum + item.price);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        toolbarHeight: 60,
-        leading: Icon(Icons.menu, color: Colors.black),
+        title: Text('Your Cart'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Column(
-              children: [
-                // Cart Icon with Badge
-                Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Image.asset(
-                      'assets/cart.png', 
-                      height: 100,
-                    ),
-                    CircleAvatar(
-                      radius: 10,
-                      backgroundColor: Colors.green,
-                      child: Text(
-                        '0',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
+          Expanded(
+            child: cartItems.isEmpty
+                ? Center(child: Text('Your cart is empty'))
+                : ListView.builder(
+                    itemCount: cartItems.length,
+                    itemBuilder: (context, index) {
+                      final product = cartItems[index];
+                      return ListTile(
+                        leading: Image.asset(
+                          product.imageUrl,
+                          width: 50,
+                          height: 50,
+                          fit: BoxFit.cover,
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 20),
-                // Message
-                Text(
-                  'Looking for something?',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                        title: Text(product.name),
+                        subtitle: Text('${product.price.toStringAsFixed(2)} EGP'),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => _removeFromCart(product.id),
+                        ),
+                      );
+                    },
                   ),
-                ),
-                SizedBox(height: 10),
+          ),
+          Container(
+            padding: EdgeInsets.all(16),
+            height: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
                 Text(
-                  'Add your favourite items to your cart.',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                  ),
+                  'Total: ${totalPrice.toStringAsFixed(2)} EGP',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 20),
-                // Start Shopping Button
                 ElevatedButton(
                   onPressed: () {
-                    // Navigate to shopping page
-                    Navigator.pushReplacement(
+                    Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()), // Replace with your home page
+                      MaterialPageRoute(builder: (context) => CheckoutPage()),
                     );
                   },
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  child: Text(
-                    'Start Shopping!',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  child: Text('Checkout'),
                 ),
               ],
             ),
           ),
         ],
       ),
-       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 3,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 3, // Set the current index for the cart page
         type: BottomNavigationBarType.fixed,
         onTap: (index) {
           if (index == 0) {
+            Navigator.popUntil(context, (route) => route.isFirst); // Home Page
+          } else if (index == 1) {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>
-                    HomePage(),
+                builder: (context) => CategoryPage(categoryName: "All Categories"),
               ),
             );
           } else if (index == 2) {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => DealsPage(),
-              ),
-            );
-          } else if (index == 3) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CartPage(), // Navigate to CartPage
-              ),
+              MaterialPageRoute(builder: (context) => DealsPage()),
             );
           } else if (index == 4) {
             Navigator.push(
@@ -119,16 +131,28 @@ class CartPage extends StatelessWidget {
           }
         },
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.category), label: 'Categories'),
-          BottomNavigationBarItem(icon: Icon(Icons.local_offer), label: 'Deals'),
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: 'Cart'),
-          BottomNavigationBarItem(icon: Icon(Icons.more_horiz), label: 'More'),
+            icon: Icon(Icons.category),
+            label: 'Categories',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.local_offer),
+            label: 'Deals',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.more_horiz),
+            label: 'More',
+          ),
         ],
       ),
     );
   }
 }
-
