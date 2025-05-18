@@ -10,7 +10,41 @@ class DealsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Carrefour Deals")),
+      appBar: AppBar(
+  backgroundColor: Colors.white,
+  elevation: 0,
+  toolbarHeight: 70,
+  title: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          Image.asset(
+            'assets/logo.png',
+            height: 60,
+          ),
+          SizedBox(width: 10),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.5,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search for products',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.grey[200],
+              ),
+            ),
+          ),
+        ],
+      ),
+      Icon(Icons.qr_code, color: Colors.black),
+    ],
+  ),
+),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,7 +76,14 @@ class DealsPage extends StatelessWidget {
                 builder: (context) => HomePage(), 
               ),
             );
-          }else if (index == 2) {
+          }else if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CategoryPage(categoryName: "All Categories"),
+              ),
+            );
+          } else if (index == 2) {
             Navigator.push(
               context,
               MaterialPageRoute(

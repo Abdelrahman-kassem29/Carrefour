@@ -28,8 +28,11 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^2.0.0
+  firebase_auth: ^4.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -114,6 +117,19 @@ flutter:
    - assets/fce11.jpg
    - assets/cart.png
    - assets/coupons.jpg
+   - assets/vegetables.jpeg
+   - assets/meat.jpg
+   - assets/fish.jpeg
+   - assets/dairy.jpeg
+   - assets/chilledfood.jpeg
+   - assets/biscuit.jpeg
+   - assets/cereals.jpeg
+   - assets/chips.jpeg
+   - assets/dairy.jpeg
+   - assets/tins.jpeg
+   - assets/tea.jpeg
+   - assets/coffee.jpeg
+   - assets/water.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
