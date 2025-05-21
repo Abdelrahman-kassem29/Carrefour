@@ -7,7 +7,7 @@ import 'hot_prices.dart';
 class CategoryPage extends StatelessWidget {
   final String categoryName;
 
-  CategoryPage({required this.categoryName});
+  const CategoryPage({super.key, required this.categoryName});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class CategoryPage extends StatelessWidget {
                   height: 80,
                 ),
                 SizedBox(width: 10),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: TextField(
                     decoration: InputDecoration(
@@ -168,7 +168,7 @@ class CategoryPage extends StatelessWidget {
   }
 
   Widget _categoryCard(String label, String imagePath) {
-    return Container(
+    return SizedBox(
       width: 100,
       child: Column(
         children: [
