@@ -1,8 +1,11 @@
+import 'package:carrefour/halwani.dart';
+import 'package:carrefour/rice.dart';
 import 'package:flutter/material.dart';
 import 'more.dart';
 import 'category.dart';
 import 'cart.dart'; 
 import 'main.dart';
+import 'ariel.dart';
 
 class DealsPage extends StatelessWidget {
   const DealsPage({Key? key}) : super(key: key);
@@ -54,7 +57,7 @@ class DealsPage extends StatelessWidget {
             offerCircles(),
             const SizedBox(height: 16),
             sectionTitle("Carrefour Top Offers"),
-            topOffersList(),
+            topOffersList(context),
             const SizedBox(height: 16),
             sectionTitle("Food Cupboard Essentials!"),
             essentialsBanners(),
@@ -176,22 +179,62 @@ class DealsPage extends StatelessWidget {
     );
   }
 
-  Widget topOffersList() {
-    final List<Map<String, dynamic>> topOffers = [
-      {'name': 'Ariel Automatic Powder Detergent - Lavender Scent - 4.5 kg', 'price': 339.95, 'oldPrice': 404.00, 'discount': '16%', 'image': 'assets/ariel.webp'},
-      {'name': 'Halwani Beef Burger - 1 kg - 20 Pieaces', 'price': 183.95, 'oldPrice': 281.00, 'discount': '35%', 'image': 'assets/burger.jpeg'},
-      {'name': 'Al Doha Egyptian Rice - 1kg', 'price': 38.95, 'oldPrice': 44.50, 'discount': '12%', 'image': 'assets/rice.jpg'},
-    ];
+  Widget topOffersList(BuildContext context) {
+  final List<Map<String, dynamic>> topOffers = [
+    {
+      'name': 'Ariel Automatic Powder Detergent - Lavender Scent - 4.5 kg',
+      'price': 339.95,
+      'oldPrice': 404.00,
+      'discount': '16%',
+      'image': 'assets/ariel.webp',
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ArielPage()), 
+        );
+      },
+    },
+    {
+      'name': 'Halwani Beef Burger - 1 kg - 20 Pieces',
+      'price': 183.95,
+      'oldPrice': 281.00,
+      'discount': '35%',
+      'image': 'assets/burger.jpeg',
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HalwaniPage()), 
+        );
+      },
+    },
+    {
+      'name': 'Al Doha Egyptian Rice - 1kg',
+      'price': 38.95,
+      'oldPrice': 44.50,
+      'discount': '12%',
+      'image': 'assets/rice.jpg',
+      'onTap': () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RicePage()), 
+        );
+      },
+    },
+  ];
 
-    return SizedBox(
-      height: 320,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        itemCount: topOffers.length,
-        itemBuilder: (context, index) {
-          final offer = topOffers[index];
-          return Container(
+  return SizedBox(
+    height: 320,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      itemCount: topOffers.length,
+      itemBuilder: (itemContext, index) {
+        final offer = topOffers[index];
+        return GestureDetector(
+          onTap: offer['onTap'] != null
+              ? () => offer['onTap']()
+              : null, // Handle the Ariel navigation
+          child: Container(
             width: 140,
             margin: const EdgeInsets.only(right: 10),
             padding: const EdgeInsets.all(12),
@@ -235,11 +278,13 @@ class DealsPage extends StatelessWidget {
                 ),
               ],
             ),
-          );
-        },
-      ),
-    );
-  }
+          ),
+        );
+      },
+    ),
+  );
+}
+
 
   Widget essentialsBanners() {
     final List<Map<String, String>> banners = [

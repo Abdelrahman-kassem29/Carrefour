@@ -19,12 +19,24 @@ import 'more.dart';
 import 'category.dart';
 import 'promotions_notifications.dart';
 import 'cart.dart'; 
-// adjust the path if needed
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 
-void main() => runApp(MyApp());
+
+// void main() => runApp(MyApp());
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
+await Firebase.initializeApp(
+options: DefaultFirebaseOptions.currentPlatform,
+);
+runApp(MyApp());
+}
+
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -35,6 +47,8 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,7 +66,7 @@ class HomePage extends StatelessWidget {
                   height: 80,
                 ),
                 SizedBox(width: 10),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: TextField(
                     decoration: InputDecoration(
@@ -130,6 +144,8 @@ class HomePage extends StatelessWidget {
 }
 
 class AutoScrollingBanner extends StatefulWidget {
+  const AutoScrollingBanner({super.key});
+
   @override
   _AutoScrollingBannerState createState() => _AutoScrollingBannerState();
 }
@@ -174,7 +190,7 @@ class _AutoScrollingBannerState extends State<AutoScrollingBanner> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 150,
       child: ListView(
         controller: _scrollController,
@@ -211,6 +227,8 @@ class CategoryGrid extends StatelessWidget {
     {'label': 'Personal Care', 'image': 'assets/personalcare.jpeg'},
     {'label': 'Baby Products', 'image': 'assets/baby.jpg'},
   ];
+
+  CategoryGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -334,6 +352,8 @@ class CategoryGrid extends StatelessWidget {
 }
 
 class DeliveryInfoCard extends StatelessWidget {
+  const DeliveryInfoCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -352,6 +372,8 @@ class DeliveryInfoCard extends StatelessWidget {
 }
 
 class PromoCard extends StatelessWidget {
+  const PromoCard({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -379,7 +401,7 @@ class PromoCard extends StatelessWidget {
 class BannerCard extends StatelessWidget {
   final String imagePath;
 
-  BannerCard({required this.imagePath});
+  const BannerCard({super.key, required this.imagePath});
 
   @override
   Widget build(BuildContext context) {

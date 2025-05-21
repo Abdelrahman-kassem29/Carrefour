@@ -5,6 +5,8 @@ import 'promotions_notifications.dart';
 import 'cart.dart';
 
 class BabyProductsPage extends StatelessWidget {
+  const BabyProductsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,6 +39,8 @@ class Product {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }

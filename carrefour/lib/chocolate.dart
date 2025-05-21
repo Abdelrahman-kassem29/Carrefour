@@ -5,10 +5,12 @@ import 'promotions_notifications.dart';
 import 'cart.dart';
 
 class ChocolatePage extends StatelessWidget {
+  const ChocolatePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Grocery Shop',
+      title: 'Chocolates & Snacks',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -37,6 +39,8 @@ class Product {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -45,29 +49,26 @@ class _HomePageState extends State<HomePage> {
   final List<Product> cart = [];
 
   final List<Product> products = [
-    Product(name: "El Mazag White Sugar", image: "assets/sugar.png", price: "32.95 EGP", size: "1 KG"),
-    Product(name: "Zaza Vegetable Ghee", image: "assets/ghee.png", price: "39.95 EGP", oldPrice: "45.75 EGP", size: "350 Gm", discount: 13),
-    Product(name: "Zaza Mixed Oil", image: "assets/oil.png", price: "49.95 EGP", size: "700 ml"),
-    Product(name: "Al Doha Egyptian Rice", image: "assets/rice1.png", price: "38.95 EGP", oldPrice: "44.50 EGP", size: "1 KG", discount: 12),
-    Product(name: "N1 Tomato Paste", image: "assets/tomato.png", price: "—", size: ""),
-    Product(name: "Ahl Algoma White Rice", image: "assets/rice2.png", price: "—", size: ""),
+    Product(name: "Katakito", image: "assets/katakito.jpeg", price: "32.95 EGP", size: "200 Gm"),
+    Product(name: "Zaza Vegetable Ghee", image: "assets/candy1.jpg", price: "39.95 EGP", oldPrice: "45.75 EGP", size: "350 Gm", discount: 13),
+    Product(name: "Zaza Mixed Oil", image: "assets/candy2.jpg", price: "49.95 EGP", size: "700 ml"),
+    Product(name: "Al Doha Egyptian Rice", image: "assets/candy3.jpg", price: "38.95 EGP", oldPrice: "44.50 EGP", size: "1 KG", discount: 12),
+    Product(name: "N1 Tomato Paste", image: "assets/katakito.jpeg", price: "24", size: "500 Gm"),
+    Product(name: "Ahl Algoma White Rice", image: "assets/candy1.jpg", price: "10", size: "200 Gm"),
   ];
 
   final List<String> categories = [
     "All",
-    "Sugar & Home Baking",
-    "Cooking Ingredients",
-    "Rice, Pasta & Pulses",
-    "Tins, Jars & Packets",
-    "Tea",
-    "Kids Drinks",
+    "Chocolates",
+    "Candy",
+    "Gums & Mints",
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Grocery Shop'),
+        title: Text('Chocolates & Snacks'),
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
               itemCount: products.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisExtent: 280,
+                mainAxisExtent: 230,
                 crossAxisSpacing: 8,
                 mainAxisSpacing: 8,
               ),
@@ -123,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                       Stack(
                         children: [
                           Container(
-                            height: 120,
+                            height: 100,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               image: DecorationImage(
